@@ -1,0 +1,13 @@
+export interface Global {
+    NewConfirmed: number,
+    TotalConfirmed: number,
+    NewDeaths: number,
+    TotalDeaths: number,
+    NewRecovered: number,
+    TotalRecovered: number,
+    Date: string
+}
+
+export interface CovidApiData {
+    [key: string]: Global,
+}
