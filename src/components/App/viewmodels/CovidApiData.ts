@@ -1,13 +1,30 @@
-export interface Global {
-    NewConfirmed: number,
-    TotalConfirmed: number,
-    NewDeaths: number,
-    TotalDeaths: number,
-    NewRecovered: number,
-    TotalRecovered: number,
-    Date: string
+interface WorldData {
+    NewConfirmed?: number,
+    TotalConfirmed?: number,
+    NewDeaths?: number,
+    TotalDeaths?: number,
+    NewRecovered?: number,
+    TotalRecovered?: number,
+    Date?: string
+}
+
+interface CountryData {
+    Country?: string,
+    CountryCode?: string,
+    Slug?: string,
+    NewConfirmed?: number,
+    TotalConfirmed?: number,
+    NewDeaths?: number,
+    TotalDeaths?: number,
+    NewRecovered?: number,
+    TotalRecovered?: number;
+}
+
+interface Countries {
+    dataByCountry: CountryData[];
 }
 
 export interface CovidApiData {
-    [key: string]: Global,
+    Global: WorldData,
+    Countries: Countries
 }
