@@ -1,26 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './Header';
 import InfoGrid from '../features/CovidInfo/InfoGrid';
 import Footer from './Footer';
 import agent from '../api/agent';
-import GetInfoComponent from '../features/CovidInfo/GetInfoComponent';
+import ShowInfoButton from '../features/CovidInfo/ShowInfoButton';
 
 
 function App() {
   const [globalCovidInfo, setGlobalCovidInfo] = useState({});
-  const [showGlobalData, setShowGlobalData] = useState(false);
+  const [toggleGlobalData, setToggleGlobalData] = useState(false);
 
-  const getGlobalCovidInfo = () => {
+  const showGlobalCovidInfo = () => {
+    setToggleGlobalData(!toggleGlobalData);
+  }
+
+  useEffect(() => {
     agent.CovidInfo.list().then(res => {
       setGlobalCovidInfo(res.Global);
-      setShowGlobalData(true);
     })
-  }
+  }, [])
 
   return (
     <div className='flex flex-col h-screen'>
     <Header />
-      {showGlobalData ? <InfoGrid data={globalCovidInfo}/> : <GetInfoComponent getGlobalInfo={getGlobalCovidInfo}/>}  
+     <ShowInfoButton 
+      showGlobalInfo={showGlobalCovidInfo}
+      toggleInfoBool={toggleGlobalData}/>
+      {toggleGlobalData ? <InfoGrid globalData={globalCovidInfo}/> : ''} 
     <Footer />
     </div>
   );

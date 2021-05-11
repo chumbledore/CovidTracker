@@ -1,4 +1,4 @@
-interface WorldData {
+interface Global {
     NewConfirmed?: number,
     TotalConfirmed?: number,
     NewDeaths?: number,
@@ -21,10 +21,10 @@ interface CountryData {
 }
 
 interface Countries {
-    dataByCountry: CountryData[];
+    Countries: CountryData[];
 }
 
 export interface CovidApiData {
-    Global: WorldData,
+    Global: Global,
     Countries: Countries
 }
