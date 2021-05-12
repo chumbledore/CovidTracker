@@ -1,4 +1,4 @@
-import { CovidApiData } from '../viewmodels/CovidApiData';
+import { CovidAPIData } from '../viewmodels/CovidAPIData';
 import axios, { AxiosResponse } from 'axios';
 
 axios.defaults.baseURL = 'https://api.covid19api.com/';
@@ -10,7 +10,7 @@ const requests = {
 }
 
 const CovidInfo = {
-    list: () => requests.get<CovidApiData>('/summary'),
+    list: () => requests.get<CovidAPIData>('/summary'),
 }
 
 const agent = {

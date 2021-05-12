@@ -1,9 +1,10 @@
 import Moment from 'react-moment';
 import InfoNode from './InfoNode';
 import CountrySelector from './CountrySelector';
+import { Global } from '../../viewmodels/CovidAPIData';
 
 interface Props {
-    globalData: any
+    globalData: Global
 };
 
 function InfoGrid({ globalData }: Props) {
@@ -21,6 +22,7 @@ function InfoGrid({ globalData }: Props) {
                 <InfoNode title='Newly Recovered' covidData={globalData.NewRecovered}/>
                 <InfoNode title='Total Recovered' covidData={globalData.TotalRecovered}/>
             </div>
+        {/* <CountrySelector selectorInfo={selectorInfo}/> */}
         </>
     )
 }

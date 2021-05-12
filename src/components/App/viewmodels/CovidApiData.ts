@@ -1,30 +1,35 @@
-interface Global {
-    NewConfirmed?: number,
-    TotalConfirmed?: number,
-    NewDeaths?: number,
-    TotalDeaths?: number,
-    NewRecovered?: number,
-    TotalRecovered?: number,
-    Date?: string
+export interface CovidAPIData {
+    ID:        string;
+    Message:   string;
+    Global:    Global;
+    Countries: Country[];
+    Date:      Date;
 }
 
-interface CountryData {
-    Country?: string,
-    CountryCode?: string,
-    Slug?: string,
-    NewConfirmed?: number,
-    TotalConfirmed?: number,
-    NewDeaths?: number,
-    TotalDeaths?: number,
-    NewRecovered?: number,
-    TotalRecovered?: number;
+export interface Country {
+    ID:             string;
+    Country:        string;
+    CountryCode:    string;
+    Slug:           string;
+    NewConfirmed:   number;
+    TotalConfirmed: number;
+    NewDeaths:      number;
+    TotalDeaths:    number;
+    NewRecovered:   number;
+    TotalRecovered: number;
+    Date:           Date;
+    Premium:        Premium;
 }
 
-interface Countries {
-    Countries: CountryData[];
+export interface Premium {
 }
 
-export interface CovidApiData {
-    Global: Global,
-    Countries: Countries
+export interface Global {
+    NewConfirmed:   number;
+    TotalConfirmed: number;
+    NewDeaths:      number;
+    TotalDeaths:    number;
+    NewRecovered:   number;
+    TotalRecovered: number;
+    Date:           Date;
 }

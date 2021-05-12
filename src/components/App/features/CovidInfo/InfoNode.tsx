@@ -1,8 +1,8 @@
-import { CovidApiData } from '../../viewmodels/CovidApiData';
+
 
 interface Props {
     title: string
-    covidData: CovidApiData
+    covidData: number
 }
 
 function InfoNode({ title, covidData }: Props) {
