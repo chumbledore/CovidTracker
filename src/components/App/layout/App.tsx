@@ -4,36 +4,56 @@ import InfoGrid from '../features/CovidInfo/InfoGrid';
 import Footer from './Footer';
 import agent from '../api/agent';
 import ShowInfoButton from '../features/CovidInfo/ShowInfoButton';
-import { Country, Global } from '../viewmodels/CovidAPIData';
+import { Country, CovidAPIData } from '../viewmodels/CovidAPIData';
 import CountrySelector from '../features/CovidInfo/CountrySelector';
+import LoadingComponent from './LoadingComponent';
 
 
 
 function App() {
-  const [globalCovidInfo, setGlobalCovidInfo] = useState<Global>();
-  const [countryCovidInfo,  setCountryCovidInfo] = useState<Country[]>([]);
-  const [toggleGlobalData, setToggleGlobalData] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [covidInfo, setCovidInfo] = useState<CovidAPIData>();
+  const [selectedCountry, setSelectedCountry] = useState<Country>();
+  const [toggleData, setToggleData] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(true);
 
-  const showGlobalCovidInfo = () => {
-    setToggleGlobalData(!toggleGlobalData);
+  const showInfoHandler = () => {
+    setToggleData(!toggleData);
   }
 
   useEffect(() => {
     agent.CovidInfo.list().then(res => {
-      setGlobalCovidInfo(res.Global!);
-      setCountryCovidInfo(res.Countries!);
-      console.log(res.Countries);
+      setCovidInfo(res!);
+      setIsLoading(false);
     })
   }, [])
+
+  const countrySelectionHandler = (id: string) => {
+    setSelectedCountry(covidInfo!.Countries.find(country => country.ID === id));
+    setDisabled(false);
+  }
+
+  if(isLoading) {
+    return <LoadingComponent />
+  }
 
   return (
     <div className='flex flex-col h-screen'>
     <Header />
+    <CountrySelector
+        selectCountry={countrySelectionHandler}
+        selectorInfo={covidInfo!.Countries!}
+        disabled={!disabled}/>
      <ShowInfoButton 
-      showGlobalInfo={showGlobalCovidInfo}
-      toggleInfoBool={toggleGlobalData}/>
-      {toggleGlobalData ? <InfoGrid globalData={globalCovidInfo!}/> : ''}
-      <CountrySelector selectorInfo={countryCovidInfo}/> 
+      showInfo={showInfoHandler}
+      toggleInfoBool={toggleData}
+      disabled={disabled}/>
+      
+      {toggleData ? 
+          <InfoGrid title={selectedCountry!.Country} data={selectedCountry} />
+        :
+          <InfoGrid title='Global Covid Data' data={covidInfo!.Global}/>}
+      
     <Footer />
     </div>
   );
