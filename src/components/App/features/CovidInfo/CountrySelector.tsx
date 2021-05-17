@@ -1,4 +1,4 @@
-import { Country } from '../../viewmodels/CovidAPIData';
+import { Country } from '../../viewmodels/CovidAPIDatas';
 
 interface Props {
     selectorInfo: Country[];
