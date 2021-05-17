@@ -1,6 +1,6 @@
 import Moment from 'react-moment';
 import InfoNode from './InfoNode';
-import { Country, Global } from '../../viewmodels/CovidAPIDatas';
+import { Country, Global } from '../../viewmodels/CovidAPIData';
 
 interface Props {
     data: Global | Country | undefined;

@@ -4,7 +4,7 @@ import InfoGrid from '../features/CovidInfo/InfoGrid';
 import Footer from './Footer';
 import agent from '../api/agent';
 import ShowInfoButton from '../features/CovidInfo/ShowInfoButton';
-import { Country, CovidAPIData } from '../viewmodels/CovidAPIDatas';
+import { Country, CovidAPIData } from '../viewmodels/CovidAPIData';
 import CountrySelector from '../features/CovidInfo/CountrySelector';
 import LoadingComponent from './LoadingComponent';
 
