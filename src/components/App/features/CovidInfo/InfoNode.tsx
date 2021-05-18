@@ -1,4 +1,4 @@
-
+import numeral from 'numeral';
 
 interface Props {
     title: string
@@ -10,7 +10,7 @@ function InfoNode({ title, covidData }: Props) {
         <div className='bg-green-300 h-32 rounded-xl shadow-lg'>
             <div className='font-bold text-xl mb-6 underline'>{title}:</div>
             <div className='text-center font-bold text-3xl'>
-                {covidData}
+                {numeral(covidData).format('0,0')}
             </div>
         </div>
     )
