@@ -7,6 +7,7 @@ import ShowInfoButton from '../features/CovidInfo/ShowInfoButton';
 import { Country, CovidAPIData } from '../viewmodels/CovidAPIData';
 import CountrySelector from '../features/CovidInfo/CountrySelector';
 import LoadingComponent from './LoadingComponent';
+import ErrorComponent from './ErrorComponent/ErrorComponent';
 
 
 
@@ -23,18 +24,29 @@ function App() {
 
   useEffect(() => {
     agent.CovidInfo.list().then(res => {
-      setCovidInfo(res!);
+      setCovidInfo(res);
       setIsLoading(false);
     })
   }, [])
 
-  const countrySelectionHandler = (id: string) => {
-    setSelectedCountry(covidInfo!.Countries.find(country => country.ID === id));
-    setDisabled(false);
-  }
-
   if(isLoading) {
     return <LoadingComponent />
+  }
+
+  const fallBackGetInfo = () => {
+    agent.CovidInfo.list().then(res => {
+      setCovidInfo(res);
+      setIsLoading(false);
+    })
+  }
+
+  if(covidInfo === undefined) {
+    return <ErrorComponent fallBackOnClick={fallBackGetInfo}/>
+  }
+
+  const countrySelectionHandler = (id: string) => {
+    setSelectedCountry(covidInfo.Countries.find(country => country.ID === id));
+    setDisabled(false);
   }
 
   return (
@@ -42,7 +54,7 @@ function App() {
     <Header />
     <CountrySelector
         selectCountry={countrySelectionHandler}
-        selectorInfo={covidInfo!.Countries!}
+        selectorInfo={covidInfo.Countries}
         disabled={!disabled}/>
      <ShowInfoButton 
       showInfo={showInfoHandler}
@@ -52,7 +64,7 @@ function App() {
       {toggleData ? 
           <InfoGrid title={selectedCountry!.Country} data={selectedCountry} />
         :
-          <InfoGrid title='Global Covid Data' data={covidInfo!.Global}/>}
+          <InfoGrid title='Global Covid Data' data={covidInfo.Global}/>}
       
     <Footer />
     </div>
